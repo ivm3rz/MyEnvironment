@@ -1367,12 +1367,16 @@ compilation."
   (setq compile-command my:compile-command)
   (custom-set-variables '(c-noise-macro-names '("constexpr")))
   (add-hook 'c-mode-common-hook 'my:compile-command-hook)
+
+  ;; C/C+ style
+  (use-package infotecs-c-style
+    :config
+    ;; This prevents the extra spaces in a namespace
+    (add-hook 'c-mode-common-hook 'infotecs/c-style-mode-hook)
+    )
   (use-package google-c-style
     :ensure t
     :config
-    ;; This prevents the extra two spaces in a namespace that Emacs
-    ;; otherwise wants to put... Gawd!
-    (add-hook 'c-mode-common-hook 'google-set-c-style)
     ;; Autoindent using google style guide
     (add-hook 'c-mode-common-hook 'google-make-newline-indent)
     )
