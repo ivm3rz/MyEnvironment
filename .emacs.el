@@ -908,7 +908,7 @@ compilation."
           (visit-tags-table tags-file t))))
 
     (setq counsel-etags-update-tags-backend
-          (lambda ()
+          (lambda (src-dir)
             (interactive)
             (let* ((tags-file (counsel-etags-locate-tags-file)))
               (when tags-file
