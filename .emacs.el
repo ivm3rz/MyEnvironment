@@ -99,7 +99,7 @@ compilation."
 (defvar my:use-theme 'doom-one)
 
 ;; Set my:use-dvorak-bindings to t if you use a Dvorak keyboard layout
-(defvar my:use-dvorak-bindings t)
+(defvar my:use-dvorak-bindings nil)
 
 ;; Set to t in order to enable using hydra with only x as the activation
 ;; key. The commands are:
