@@ -1313,18 +1313,19 @@ compilation."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clang-rename
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(if (not (file-directory-p "~/.emacs.d/plugins/"))
-    (make-directory "~/.emacs.d/plugins/"))
-(if (not (file-exists-p "~/.emacs.d/plugins/emacs-clang-rename.el"))
-    (url-copy-file
-     "https://raw.githubusercontent.com/nilsdeppe/emacs-clang-rename/master/emacs-clang-rename.el"
-     "~/.emacs.d/plugins/emacs-clang-rename.el"))
-(when (file-exists-p "~/.emacs.d/plugins/emacs-clang-rename.el")
-    (use-package emacs-clang-rename
-      :bind (("C-c c p" . emacs-clang-rename-at-point)
-             ("C-c c q" . emacs-clang-rename-qualified-name)
-             ("C-c c a" . emacs-clang-rename-qualified-name-print))
-      ))
+;; (if (not (file-directory-p 'site-lisp-dir))
+;;     (make-directory 'site-lisp-dir))
+;; (setq clang-rename-el (expand-file-name "emacs-clang-rename.el" 'site-lisp-dir))
+;; (if (not (file-exists-p "~/.emacs.d/plugins/emacs-clang-rename.el"))
+;;     (url-copy-file
+;;      "https://raw.githubusercontent.com/nilsdeppe/emacs-clang-rename/master/emacs-clang-rename.el"
+;;      'clang-rename-el)
+;; (when (file-exists-p 'clang-rename-el)
+;;     (use-package emacs-clang-rename
+;;       :bind (("C-c c p" . emacs-clang-rename-at-point)
+;;              ("C-c c q" . emacs-clang-rename-qualified-name)
+;;              ("C-c c a" . emacs-clang-rename-qualified-name-print))
+;;       ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Modern C++ code highlighting
@@ -2029,34 +2030,14 @@ Please set my:ycmd-server-command appropriately in ~/.emacs.el.\n"
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Bazel-mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(if (not (file-directory-p "~/.emacs.d/plugins/"))
-    (make-directory "~/.emacs.d/plugins/"))
-(if (not (file-exists-p "~/.emacs.d/plugins/bazel-mode.el"))
-    (url-copy-file
-     "https://raw.githubusercontent.com/codesuki/bazel-mode/master/bazel-mode.el"
-     "~/.emacs.d/plugins/bazel-mode.el"))
-(if (file-exists-p "~/.emacs.d/plugins/bazel-mode.el")
-    (use-package bazel-mode
-      :mode ("BUILD" "\\.bazel\\'" "\\.bzl'" "WORKSPACE\\'")
-      )
-  )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; protobuf-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(if (not (file-directory-p "~/.emacs.d/plugins/"))
-    (make-directory "~/.emacs.d/plugins/"))
-(if (not (file-exists-p "~/.emacs.d/plugins/protobuf-mode.el"))
-    (url-copy-file
-     "https://raw.githubusercontent.com/protocolbuffers/protobuf/master/editors/protobuf-mode.el"
-     "~/.emacs.d/plugins/protobuf-mode.el"))
-(if (file-exists-p "~/.emacs.d/plugins/protobuf-mode.el")
-    (use-package protobuf-mode
-      :mode ("\\.proto\\'")
-      )
-  )
+(use-package protobuf-mode
+  :ensure t
+  :config
+  (add-hook 'protobuf-mode-hook (lambda ()
+                            (set-syntax-table c-mode-syntax-table)))
+  :mode ("\\.proto"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; yaml-mode
@@ -2097,17 +2078,9 @@ Please set my:ycmd-server-command appropriately in ~/.emacs.el.\n"
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Setup Dockerfile mode
-;; 1. Download file from GitHub
-;; 2. Load mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(if (not (file-directory-p "~/.emacs.d/plugins"))
-    (make-directory "~/.emacs.d/plugins"))
-(if (not (file-exists-p "~/.emacs.d/plugins/dockerfile-mode.el"))
-    (url-copy-file
-     "https://raw.githubusercontent.com/spotify/dockerfile-mode/master/dockerfile-mode.el"
-     "~/.emacs.d/plugins/dockerfile-mode.el"))
+;; Dockerfile mode
 (use-package dockerfile-mode
+  :ensure t
   :mode ("Dockerfile"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2166,6 +2139,77 @@ Please set my:ycmd-server-command appropriately in ~/.emacs.el.\n"
   :mode (("\\.lua\\'" . lua-mode))
   :config
   (add-hook 'lua-mode-hook #'company-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Use restclient-mode for RESTful API
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package restclient
+  :ensure t
+  :mode ("\\.\\(http\\|rest\\)$" . restclient-mode)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Nicer naming of buffers for files with identical names
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package uniquify
+  :config
+  (setq uniquify-buffer-name-style 'reverse)
+  (setq uniquify-separator " • ")
+  (setq uniquify-after-kill-buffer-p t)      ; rename after killing uniquified
+  (setq uniquify-ignore-buffers-re "^\\*"))  ; don't muck with special buffers
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Major mode for viewing certificates, CRLs, keys, DH-parameters and ASN.1 using OpenSSL
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package x509-mode
+  :ensure t)
+
+;; nginx-mode
+(use-package nginx-mode
+   :ensure t
+   :config
+   (add-to-list 'auto-mode-alist '("/nginx/sites-\\(?:available\\|enabled\\)/" . nginx-mode)))
+
+;; nxml-mode
+(use-package nxml-mode
+   :config
+   (setq nxml-child-indent 5 nxml-attribute-indent 5)
+   (setq nxml-slash-auto-complete-flag t)
+   ;; See: http://sinewalker.wordpress.com/2008/06/26/pretty-printing-xml-with-emacs-nxml-mode/
+   (defun nxml-pretty-print (beg end)
+     "Pretty format XML markup in region. The function inserts
+linebreaks to separate tags that have nothing but whitespace
+between them.  It then indents the markup by using nxml's
+indentation rules."
+     (interactive "r")
+     (unless (use-region-p)
+       (setq beg (point-min)
+             end (point-max)))
+     ;; Use markers because our changes will move END
+     (setq beg (set-marker (make-marker) begin)
+           end (set-marker (make-marker) end))
+     (save-excursion
+       (goto-char beg)
+       (while (search-forward-regexp "\>[ \\t]*\<" end t)
+         (backward-char) (insert "\n"))
+       (nxml-mode)
+       (indent-region begin end))))
+
+;; Bash completion
+;; (autoload 'bash-completion-dynamic-complete
+;;   "bash-completion"
+;;   "BASH completion hook")
+;; (add-hook 'shell-dynamic-complete-functions
+;;              'bash-completion-dynamic-complete)
+
+(defun reverse-words (beg end)
+    "Reverse the order of words in region."
+    (interactive "*r")
+    (apply
+     'insert
+      (reverse
+       (split-string
+        (delete-and-extract-region beg end) "\\b"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; auctex
