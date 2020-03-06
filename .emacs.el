@@ -884,7 +884,7 @@ compilation."
              (ctags-pg (or
                         counsel-etags-tags-program
                         (format "%s -e -L" (counsel-etags-guess-program
-                                            "ctags"))))
+                                            "universal-ctags"))))
              (default-directory src-dir)
              ;; run find&ctags to create TAGS
              (cmd (format
