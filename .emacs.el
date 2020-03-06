@@ -46,7 +46,7 @@
 
 ;; Specify the jupyter executable name, and the start dir of the server
 (defvar my:jupyter_location (executable-find "jupyter"))
-(defvar my:jupyter_start_dir "/home/nils")
+(defvar my:jupyter_start_dir "/home/ivm/")
 
 ;; In order to get EIN to work with byte-compiling we must explicitly
 ;; load some of the EIN files. Which files need to be loaded seems to change
@@ -255,10 +255,17 @@ compilation."
                     file-name-handler-alist file-name-handler-alist-old
                     )))
 
-;; Extra plugins and config files are stored here
-(if (not (file-directory-p "~/.emacs.d/plugins/"))
-    (make-directory "~/.emacs.d/plugins/"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/plugins"))
+;; Extra lisp and config files are stored here
+(setq site-lisp-dir "~/.emacs.d/lisp/")
+(if (not (file-directory-p site-lisp-dir))
+    (make-directory site-lisp-dir))
+(add-to-list 'load-path (expand-file-name site-lisp-dir))
+
+;;; Function loading config from file.
+(defun load-user-file (file)
+  (interactive "f")
+  "Load a file in current user's configuration directory"
+  (load-file (expand-file-name file user-emacs-directory)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Start emacs server if not already running
