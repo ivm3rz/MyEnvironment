@@ -1946,9 +1946,10 @@ Please set my:ycmd-server-command appropriately in ~/.emacs.el.\n"
 (use-package magit
   :ensure t
   :after (:any ivy selectrum)
-  :commands (magit-checkout)
+  :commands (magit-checkout magit-blame)
   :bind (("M-g M-s" . magit-status)
          ("M-g M-c" . 'magit-checkout)
+         ("M-g M-b" . 'magit-blame)
          )
   :init
   (use-package dash
