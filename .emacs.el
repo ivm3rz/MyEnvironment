@@ -1346,6 +1346,21 @@ compilation."
     )
   )
 
+;; doxygen comments
+(use-package doxymacs
+  :init
+  (eval-when-compile
+    ;; Silence missing function warnings
+    (declare-function doxymacs-font-lock "doxymacs.el"))
+  (setq doxymacs-doxygen-style "C++")
+  :config
+  (add-hook 'c-mode-common-hook 'doxymacs-mode)
+  (defun doxymacs-font-lock-hook ()
+    (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+        (doxymacs-font-lock)))
+  (add-hook 'font-lock-mode-hook 'doxymacs-font-lock-hook)
+  )
+
 ;; Change tab key behavior to insert spaces instead
 (setq-default indent-tabs-mode nil)
 
