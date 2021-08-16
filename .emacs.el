@@ -1911,10 +1911,12 @@ compilation."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package cmake-mode
   :ensure t
-  :mode ("CMakeLists.txt" ".cmake")
+  :after (rx)
+  :mode ("CMakeLists.txt" "\\.cmake$")
   :hook (cmake-mode . (lambda ()
                         (add-to-list 'company-backends 'company-cmake)))
   :config
+  (setq cmake-tab-width 5)
   (use-package cmake-font-lock
     :ensure t
     :defer t
