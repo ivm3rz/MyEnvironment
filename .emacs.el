@@ -834,15 +834,16 @@ compilation."
   ;; in the root directory of your project.
   (use-package counsel-etags
     :ensure t
+    :after (:all counsel)
+    :bind (
+           ("M-]" . counsel-etags-find-tag-at-point)
+           ("M-t" . counsel-etags-grep-symbol-at-point))
     :init
     (eval-when-compile
       ;; Silence missing function warnings
       (declare-function counsel-etags-virtual-update-tags "counsel-etags.el")
       (declare-function counsel-etags-guess-program "counsel-etags.el")
       (declare-function counsel-etags-locate-tags-file "counsel-etags.el"))
-    :bind (
-           ("M-]" . counsel-etags-find-tag-at-point)g
-           ("M-t" . counsel-etags-grep-symbol-at-point))
     :config
     ;; debug mode
     (setq counsel-etags-debug t)
