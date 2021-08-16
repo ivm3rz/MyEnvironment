@@ -584,7 +584,7 @@ compilation."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Select search backend
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar my:use-ivy nil)
+(defvar my:use-ivy t)
 (defvar my:use-selectrum nil)
 (if (string-match "ivy" my:search-backend)
     (setq my:use-ivy t)
