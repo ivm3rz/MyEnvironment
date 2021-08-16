@@ -166,6 +166,17 @@ compilation."
       ((t (:background "black")))))
   )
 
+;; Set my:use-corp-proxy to nil if you want to disable proxy
+(defvar my:use-corp-proxy t)
+
+(when my:use-corp-proxy
+  ;; corporate proxy
+  (setq url-proxy-services
+        '(("no_proxy" . "^\\(localhost\\|10.*\\|192.168.*\\|*.infotecs.*\\|*.iitrust*\\)")
+          ("http" . "127.0.0.1:3128")
+          ("https" . "127.0.0.1:3128")))
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Set packages to install
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
