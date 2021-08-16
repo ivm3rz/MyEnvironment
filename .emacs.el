@@ -1492,7 +1492,7 @@ compilation."
 
   ;; Use as C++ completer if desired. We use the clangd backend.
   (when (string-equal my:cxx-completer "lsp")
-    (add-hook 'c-mode-common-hook #'lsp)
+    (add-hook 'c++-mode-hook #'lsp)
     ;;
     (add-hook 'lsp-mode-hook
               '(lambda ()
