@@ -2479,8 +2479,6 @@ by using nxml's indentation rules."
   (powerline-right-theme)
   )
 
-(my:set-custom-faces)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; evil-mode: Emacs Vi Layer to use Vi/Vim keybindings in Emacs.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
