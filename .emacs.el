@@ -2533,14 +2533,6 @@ by using nxml's indentation rules."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-to-list 'auto-mode-alist '("\\.ci\\'" . c++-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Load SpEC files in specinput mode
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when (file-exists-p (expand-file-name "~/.emacs.d/plugins/specinput-mode.el"))
-    (use-package specinput-mode
-      :mode ("\\.input\\'" "\\.output\\'")
-      ))
-
 (add-to-list 'auto-mode-alist '("\\.def\\'" . bash-mode))
 (add-to-list 'auto-mode-alist '("\\.env\\'" . bash-mode))
 (add-to-list 'auto-mode-alist '("\\.toplevel\\'" . perl-mode))
