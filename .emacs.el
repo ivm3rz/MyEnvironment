@@ -1409,23 +1409,28 @@ compilation."
 (use-package lsp-mode
   :ensure t
   :hook (;; C++ completers are: ccls, clangd, or cquery. I use clangd.
-         (c-mode-common . lsp)
+         (c++-mode . lsp)
          ;; Python on Linux/mac OS is pyls (python language server)
          (python-mode . lsp)
          ;; Rust RLS (Rust Language Server) https://github.com/rust-lang/rls
          (rust-mode . lsp)
          ;; Bash uses bash-language-server
          ;; https://github.com/mads-hartmann/bash-language-server
-         (shell-mode . lsp)
+         (sh-mode . lsp)
          ;; CMake uses cmake-language-server
          ;; https://github.com/regen100/cmake-language-server
          ;;
          ;; pip install cmake-language-server
          (cmake-mode . lsp)
+         ;; Javascript mode
+         (js-mode . lsp)
          )
   :init
   ;; Disable yasnippet. We re-enable when yasnippet is loaded.
   (defvar lsp-enable-snippet nil)
+  ;; set prefix for lsp-command-keymap
+  (setq lsp-keymap-prefix "C-c l")
+
   (use-package lsp-ui
     :ensure t
     :after lsp-mode
