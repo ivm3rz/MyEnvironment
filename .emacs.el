@@ -18,6 +18,14 @@
 ;; can be updated.
 (defvar my:ein-explicit-load-files '(ein ein-notebook ein-jupyter))
 
+;; Choose ycmd or lsp for C/C++ completion. lsp or ycmd
+(defvar my:cxx-completer "lsp")
+
+;; When t use smart-hungry-delete
+;; (https://github.com/hrehfeld/emacs-smart-hungry-delete).
+;; When nil use hungry-delete
+(defvar my:use-smart-hungry-delete t)
+
 ;; In order to get lsp-mode to work properly when byte-compiling the init file
 ;; we must explicitly load its files. This list is produced from all the .el
 ;; files at:
