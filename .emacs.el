@@ -1665,10 +1665,21 @@ compilation."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Org-Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq org-log-done 'time
-      org-todo-keywords '((sequence "TODO" "INPROGRESS" "DONE"))
-      org-todo-keyword-faces '(("INPROGRESS" .
-                                (:foreground "blue" :weight bold))))
+(use-package org
+  :ensure t
+  :config
+  (progn
+    (setq org-log-done 'time
+          org-todo-keywords '((sequence "TODO" "INPROGRESS" "DONE"))
+          org-todo-keyword-faces '(("INPROGRESS" .
+                                    (:foreground "blue" :weight bold))))
+    ;; ASCII drawing tool
+    (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((ditaa . t))) ; this line activates ditaa
+    )
+  )
 (use-package writegood-mode
   :ensure t
   :init
