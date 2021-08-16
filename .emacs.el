@@ -2061,6 +2061,7 @@ compilation."
 (use-package nginx-mode
    :ensure t
    :config
+   (setq nginx-indent-level 5)
    (add-to-list 'auto-mode-alist '("/nginx/sites-\\(?:available\\|enabled\\)/" . nginx-mode)))
 
 ;; nxml-mode
