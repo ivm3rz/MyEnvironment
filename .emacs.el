@@ -415,6 +415,18 @@ compilation."
 ;; Use C-c M-y instead of C-c C-y so it works in Python mode too.
 (global-set-key (kbd "C-c M-y") 'my-paste-from-xclipboard)
 
+
+(defun async-shell-command-no-window
+    (command)
+  (interactive)
+  (let
+      ((display-buffer-alist
+        (list
+         (cons
+          "\\*Async Shell Command\\*.*"
+          (cons #'display-buffer-no-window nil)))))
+    (async-shell-command command)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Function to set SSH_AUTH_SOCK env variable to socket
 ;; created by systemd.
