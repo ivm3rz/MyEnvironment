@@ -810,11 +810,15 @@ compilation."
       (declare-function counsel-etags-guess-program "counsel-etags.el")
       (declare-function counsel-etags-locate-tags-file "counsel-etags.el"))
     :bind (
-           ("M-." . counsel-etags-find-tag-at-point)
+           ("M-]" . counsel-etags-find-tag-at-point)g
            ("M-t" . counsel-etags-grep-symbol-at-point))
     :config
+    ;; debug mode
+    (setq counsel-etags-debug t)
     ;; Ignore files above 800kb
     (setq counsel-etags-max-file-size 800)
+    ;; System headers tags
+    (setq counsel-etags-ctags-program "universal-ctags")
     ;; Ignore build directories for tagging
     (add-to-list 'counsel-etags-ignore-directories '"build*")
     (add-to-list 'counsel-etags-ignore-directories '".vscode")
