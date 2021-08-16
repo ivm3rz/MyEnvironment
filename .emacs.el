@@ -26,6 +26,12 @@
 ;; When nil use hungry-delete
 (defvar my:use-smart-hungry-delete t)
 
+;; Set to t if you want to use ycmd-goto in C/C++/Rust mode
+(defvar my:use-ycmd-goto nil)
+
+;; Set to t if you want to use lsp-find-definition in C/C++/Rust mode
+(defvar my:use-lsp-goto t)
+
 ;; In order to get lsp-mode to work properly when byte-compiling the init file
 ;; we must explicitly load its files. This list is produced from all the .el
 ;; files at:
