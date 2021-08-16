@@ -2070,24 +2070,21 @@ compilation."
    (setq nxml-child-indent 5 nxml-attribute-indent 5)
    (setq nxml-slash-auto-complete-flag t)
    ;; See: http://sinewalker.wordpress.com/2008/06/26/pretty-printing-xml-with-emacs-nxml-mode/
-   (defun nxml-pretty-print (beg end)
-     "Pretty format XML markup in region. The function inserts
-linebreaks to separate tags that have nothing but whitespace
-between them.  It then indents the markup by using nxml's
-indentation rules."
+   (defun nxml-pretty-print (begin end)
+     "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this. The function inserts linebreaks to separate tags that have
+nothing but whitespace between them. It then indents the markup
+by using nxml's indentation rules."
      (interactive "r")
-     (unless (use-region-p)
-       (setq beg (point-min)
-             end (point-max)))
-     ;; Use markers because our changes will move END
-     (setq beg (set-marker (make-marker) begin)
-           end (set-marker (make-marker) end))
      (save-excursion
-       (goto-char beg)
-       (while (search-forward-regexp "\>[ \\t]*\<" end t)
-         (backward-char) (insert "\n"))
        (nxml-mode)
-       (indent-region begin end))))
+       (goto-char begin)
+       (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+         (backward-char) (insert "\n") (setq end (1+ end)))
+       (indent-region begin end))
+     (message "Ah, much better!"))
+   )
 
 ;; Bash completion
 ;; (autoload 'bash-completion-dynamic-complete
