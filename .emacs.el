@@ -856,7 +856,7 @@ compilation."
     ;; Ignore files above 800kb
     (setq counsel-etags-max-file-size 800)
     ;; System headers tags
-    (setq counsel-etags-ctags-program "universal-ctags")
+    (setq counsel-etags-tags-program "universal-ctags")
     ;; Ignore build directories for tagging
     (add-to-list 'counsel-etags-ignore-directories '"build*")
     (add-to-list 'counsel-etags-ignore-directories '".vscode")
@@ -884,9 +884,7 @@ compilation."
       "Create tags file from SRC-DIR. \
      If FORCE is t, the commmand is executed without \
      checking the timer."
-      (let* ((find-pg (or
-                       counsel-etags-find-program
-                       (counsel-etags-guess-program "find")))
+      (let* ((find-pg (counsel-etags-guess-program "find"))
              (ctags-pg (or
                         counsel-etags-tags-program
                         (format "%s -e -L" (counsel-etags-guess-program
@@ -894,7 +892,7 @@ compilation."
              (default-directory src-dir)
              ;; run find&ctags to create TAGS
              (cmd (format
-                   "%s . \\( %s \\) -prune -o -type f -not -size +%sk %s | %s -"
+                   "%s . \\( %s \\) -prune -o -type f -not -size +%sk %s | %s -e -L -"
                    find-pg
                    (mapconcat
                     (lambda (p)
@@ -910,7 +908,7 @@ compilation."
         ;; always update cli options
         (when doit
           (message "%s at %s" cmd default-directory)
-          (async-shell-command cmd)
+          (async-shell-command-no-window cmd)
           (visit-tags-table tags-file t))))
 
     (setq counsel-etags-update-tags-backend
@@ -1810,6 +1808,7 @@ compilation."
       :bind (("<backspace>" . smart-hungry-delete-backward-char)
              ("C-h" . smart-hungry-delete-backward-char)
              ("C-d" . smart-hungry-delete-forward-char))
+      :defer nil
       :init
       (eval-when-compile
         ;; Silence missing function warnings
