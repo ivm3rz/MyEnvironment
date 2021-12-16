@@ -856,7 +856,7 @@ compilation."
     ;; Ignore files above 800kb
     (setq counsel-etags-max-file-size 800)
     ;; System headers tags
-    (setq counsel-etags-tags-program "universal-ctags")
+    (setq counsel-etags-tags-program "ctags-universal")
     ;; Ignore build directories for tagging
     (add-to-list 'counsel-etags-ignore-directories '"build*")
     (add-to-list 'counsel-etags-ignore-directories '".vscode")
