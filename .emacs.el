@@ -1300,6 +1300,7 @@ compilation."
   :ensure t
   :commands (elpy-enable)
   :after python
+  :bind (("M-/" . elpy-goto-definition))
   :config
   (elpy-enable)
   )
