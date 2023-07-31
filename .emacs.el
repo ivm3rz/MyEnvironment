@@ -2114,6 +2114,8 @@ compilation."
 ;; Major mode for viewing certificates, CRLs, keys, DH-parameters and ASN.1 using OpenSSL
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package x509-mode
+  :config
+  (setq x509-x509-default-arg "x509 -text -noout -nameopt utf8")
   :ensure t)
 
 ;; nginx-mode
