@@ -1461,6 +1461,8 @@ compilation."
          (cmake-mode . lsp)
          ;; Javascript mode
          (js-mode . lsp)
+         ;; Kotlin mode
+         (kotlin-mode . lsp)
          )
   :init
   ;; Disable yasnippet. We re-enable when yasnippet is loaded.
@@ -1994,6 +1996,13 @@ compilation."
 (use-package yaml-mode
   :ensure t
   :mode ("\\.yml\\'" "\\.yaml\\'"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; kotlin-mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(use-package kotlin-mode
+  :ensure t
+  :mode ("\\.kt\\'"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; json-mode
