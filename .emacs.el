@@ -3,6 +3,7 @@
 ;; Emacs 25.1 and newer tested
 ;;; Code:
 
+(setq package-check-signature 'allow-unsigned)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Configuration/Customization:
 ;; Defines global variables that are later used to customize and set
@@ -2650,6 +2651,9 @@ by using nxml's indentation rules."
 
 (use-package treemacs-magit
   :after (treemacs magit)
+  :ensure t)
+
+(use-package gnu-elpa-keyring-update
   :ensure t)
 
 (provide '.emacs)
